@@ -1,0 +1,172 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>School Store</title>
+</head>
+<body>
+
+<h2>Student Detail Form</h2>
+
+<form method="post" id="personForm" data-courses-url="{% url 'shop:ajax_load_courses' %}" action="">
+    {% csrf_token %}
+    <table>
+   <tr> <td><label>Name &nbsp;</label></td>
+        <td>{{ form.name }}</td>
+   </tr>
+            <tr></tr>
+    <tr>
+        <td>
+            <label>Date of Birth &nbsp;</label>
+        </td>
+        <td>
+            <input type="date" name="dob" id="{{ form.dob.id_for_label }}">
+            <!--{{form.dob}}-->
+        </td>
+    </tr>
+            <tr></tr>
+    <tr>
+        <td>
+            <label>Age</label>
+        </td>
+        <td>
+            {{form.age}}<br/>
+        </td>
+    </tr>
+            <tr></tr>
+    <tr>
+        <td>
+            <label>Gender &nbsp;</label>
+        </td>
+        <td>
+            {{form.gender}}
+        </td>
+    </tr>
+            <tr></tr>
+    <tr>
+        <td>
+            <label>Address &nbsp;</label>
+        </td>
+        <td>
+            {{form.address}}
+        </td>
+    </tr>
+            <tr></tr>
+    <tr>
+        <td>
+            <label>Phone Number &nbsp;</label>
+        </td>
+        <td>
+            {{form.phone}}
+        </td>
+    </tr>
+            <tr></tr>
+    <tr>
+        <td>
+            <label>Email &nbsp;</label>
+        </td>
+        <td>
+            {{form.mail}}
+        </td>
+    </tr>
+            <tr></tr>
+    <tr>
+        <td>
+            <label>Purpose &nbsp;</label>
+        </td>
+        <td>
+            {{form.purpose}}
+        </td>
+    </tr>
+            <tr></tr>
+    <tr>
+        <td>
+            <label>Department &nbsp;</label>
+        </td>
+        <td>
+            {{form.department}}
+        </td>
+</tr>
+            <tr></tr>
+    <tr>
+        <td>
+            <label>Course &nbsp;</label>
+        </td>
+        <td>
+            {{form.course}}
+        </td>
+    </tr>
+            <tr></tr>
+    <tr>
+        <td>
+            <label>Materials Provide:</label>
+        </td>
+        <td>
+            <input type="checkbox" name="debit_notebook" id="{{ form.debit_notebook.id_for_label }}" {% if form.debit_notebook.value %}checked{% endif %}>
+  <label for="{{ form.debit_notebook.id_for_label }}">Debit Note Book</label><br>
+  <input type="checkbox" name="pen" id="{{ form.pen.id_for_label }}" {% if form.pen.value %}checked{% endif %}>
+  <label for="{{ form.pen.id_for_label }}">Pen</label><br>
+  <input type="checkbox" name="exam_papers" id="{{ form.exam_papers.id_for_label }}" {% if form.exam_papers.value %}checked{% endif %}>
+  <label for="{{ form.exam_papers.id_for_label }}">Exam Papers</label><br>
+        </td>
+    </tr>
+</table>
+
+
+
+
+
+
+
+<!--<label>Materials Provided:</label>&nbsp;&nbsp;-->
+<!--  {{ form.debit_note_book }} Debit Note Book &nbsp;-->
+<!--  {{ form.pen }} Pen &nbsp;-->
+<!--  {{ form.exam_papers }} Exam Papers<br>-->
+    <input type="submit" value="Submit">
+</form>
+
+{% if messages %}
+  {% for message in messages %}
+    <div class="alert alert-success">
+      {{ message }}
+        <a href="/">Return to Home</a>
+    </div>
+  {% endfor %}
+{% endif %}
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+    $("#id_department").change(function () {
+        const url = $("#personForm").attr("data-courses-url");  // get the url of the `load_cities` view
+        const departmentId = $(this).val();  // get the selected country ID from the HTML input
+
+        $.ajax({                       // initialize an AJAX request
+            url: url,                    // set the url of the request (= /persons/ajax/load-cities/ )
+            data: {
+                'department_id': departmentId       // add the country id to the GET parameters
+            },
+            success: function (data) {   // `data` is the return of the `load_cities` view function
+                $("#id_course").html(data);  // replace the contents of the city input with the data that came from the server
+                /*
+                let html_data = '<option value="">---------</option>';
+                data.forEach(function (course) {
+                    html_data += `<option value="${course.id}">${course.name}</option>`
+                });
+                console.log(html_data);
+                $("#id_course").html(html_data);
+                */
+            }
+        });
+
+    });
+</script>
+
+</body>
+</html>

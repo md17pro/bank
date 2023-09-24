@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body style="background-color:#4d8f75; padding:120px">
+<h1 style="text-align:center ;padding:00px">Login</h1>
+<form method="post" action="login">
+    {% csrf_token %}
+    <table align="center" cellpadding="3">
+        <tr>
+             <td>Username</td>
+            <TD><input type="text" name="username" placeholder="Enter the username"></TD>
+        </tr>
+         <tr>
+             <td>Password</td>
+             <TD><input type="password" name="password" placeholder="Enter the Password"></TD>
+         </tr>
+        <tr>
+            <td colspan="2" align="center"><input type="submit" name="Login" value="Login">
+                <input type="reset" name="reset" value="Reset"></td>
+            <td><a href="register"><input type="button"  value="Register" ></a> </td>
+        </tr>
+    </table>
+</form>
+{% for msg in messages %}
+<h3 style="color:red;text-align:center"> {{msg}}</h3>
+{% endfor %}
+</body>
+</html>

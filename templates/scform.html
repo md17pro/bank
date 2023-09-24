@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+{% block content %}
+
+
+<h2 align="center">School Form</h2>
+<form action="" method="post" align="center">
+    {% csrf_token %}
+    <span>NAME : </span><input type="text" name="name" placeholder="Enter your Name"><br/><br/>
+    <span>DOB : </span><input type="date" name="dob" placeholder="Enter your Date of Birth"><br/><br/>
+    <span>AGE : </span><input type="number" name="age" placeholder="Enter your Age"><br/><br/>
+    <span>GENDER : </span><input type="text" name="gender" placeholder="Enter your Gender"><br/><br/>
+    <span>PHONE NUMBER : </span><input type="number" name="phone" placeholder="Enter your Phone Number"><br/><br/>
+    <span> EMAIL ID : </span><input type="email" name="email" placeholder="Enter your Email Id"><br/><br/>
+    <span> ADDRESS : </span><input type="text" name="address" placeholder="Enter your Address"><br/><br/>
+    <input type="submit">
+</form>
+
+
+{% for msg in messages %}
+<h3 style="color:red;text-align:center"> {{msg}}</h3>
+{% endfor %}
+
+{% endblock %}
